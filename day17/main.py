@@ -1,10 +1,15 @@
-import data, question_model, quiz_brain
+from data import question_data
+from question_model import Question
+from quiz_brain import QuizBrain
 
 q_list = []
-number = 0
 
-for entry in data.question_data:
-    q_list.append(question_model.Question(entry['text'], entry['answer']))
+for question in question_data:
+    new_question = Question(question["text"], question["answer"])
+    q_list.append(new_question)
 
-quiz = quiz_brain.QuizBrain(q_list)
-quiz.next_question()
+quiz = QuizBrain(q_list)
+
+while quiz.still_has_question():
+    quiz.next_question()
+quiz.goodbye_message()
